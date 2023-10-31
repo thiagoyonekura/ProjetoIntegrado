@@ -15,11 +15,15 @@ export default function TelaLogin(){
     const Texto = styled.Text`
     text-align:center;
     `
+    const Texto2 = styled.Text`
+    color:#fff;
+    text-align:center;
+    `
     const BotaoLogin = styled.TouchableOpacity`
+    background-color:#000;
     margin: 20px 25%;
     text-align:center;
     border-radius:30px;
-    border: solid 1px #ccc;
     padding: 10px 0px;
     width:50%
     `
@@ -29,15 +33,17 @@ export default function TelaLogin(){
             inputMode="email" 
             keyboardType="email-address" 
             maxLength={50}
-            placeholder="E-mail" />
+            placeholder="E-mail" 
+            placeholderTextColor={'#555'}/>
         <Input 
             caretHidden={false} 
             maxLength={20} 
             placeholder="Senha" 
-            secureTextEntry={true} />
+            secureTextEntry={true} 
+            placeholderTextColor={'#555'}/>
         
         <BotaoLogin >
-                <Texto>Fazer login</Texto>
+                <Texto2>Fazer login</Texto2>
             </BotaoLogin>
             
         < TouchableOpacity>
