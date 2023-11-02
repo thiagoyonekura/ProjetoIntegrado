@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 
-export default function TelaLogin(){
+export default function TelaLogin(props){
     const Container = styled.View `
     margin-top:30px;
     padding:60% 5%;
@@ -42,11 +42,17 @@ export default function TelaLogin(){
             secureTextEntry={true} 
             placeholderTextColor={'#555'}/>
         
-        <BotaoLogin >
+        <BotaoLogin onPress={()=>{
+            props.navigation.push("Agenda")
+        }}>
                 <Texto2>Fazer login</Texto2>
             </BotaoLogin>
             
-        < TouchableOpacity>
+        <TouchableOpacity 
+        onPress={() => {
+            props.navigation.push("Cadastro")
+        }}
+        >
             <Texto>Criar conta</Texto>
         </TouchableOpacity>
         </Container>

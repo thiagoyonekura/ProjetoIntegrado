@@ -1,7 +1,7 @@
 import { Button, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native"
 import styled from "styled-components"
 
-export default function TelaCadastro(){
+export default function TelaCadastro(props){
     const Container = styled.View`
     margin: 30% 5%;
     `
@@ -39,7 +39,9 @@ export default function TelaCadastro(){
             <BotaoCadastro>
                 <Texto2>Cadastrar</Texto2>
             </BotaoCadastro>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+            props.navigation.goBack()
+        }}>
                 <Texto>Fazer login</Texto>
             </TouchableOpacity>
         </Container>
