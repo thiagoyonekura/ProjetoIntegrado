@@ -124,6 +124,40 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetUsuarioById), new { id = usuario.Id }, usuario);
         }
 
+        // POST: Cadastro/UsuarioEPaciente
+        [HttpPost]
+        [Route("UsuarioEPaciente")]
+        public async Task<IActionResult> CadastroUsuarioEPaciente([FromBody] Usuario usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Adiciona o usuário ao contexto
+            _context.Add(usuario);
+
+            // Salva as mudanças no contexto, efetivamente persistindo o usuário e gerando o ID
+            await _context.SaveChangesAsync();
+
+            // Cria um novo paciente associado ao usuário
+            var paciente = new Paciente
+            {
+                UsuarioId = usuario.Id 
+            };
+
+            // Adiciona o paciente ao contexto
+            _context.Add(paciente);
+
+            // Salva as mudanças no contexto para persistir o paciente
+            await _context.SaveChangesAsync();
+
+            // Retorna uma resposta com os dados do usuário e paciente criados
+            return Ok(new { UsuarioId = usuario.Id, PacienteId = paciente.Id });
+        }
+
+
+
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
