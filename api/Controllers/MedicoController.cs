@@ -158,6 +158,29 @@ namespace api.Controllers
             return CreatedAtAction("GetMedico", new { id = medico.Id }, medico);
         }
 
+        //Método POST para cadastrar um novo médico
+        [HttpPost]
+        [Route("CriaMedico")]
+        public IActionResult CriaMedico([FromBody] MedicoCreateDto medicoDto)
+        {
+            if (medicoDto == null)
+            {
+                return BadRequest("Dados do médico são obrigatórios.");
+            }
+
+            var medico = new Medico
+            {
+                CRM = medicoDto.CRM,
+                Especialidade = medicoDto.Especialidade,
+                UsuarioId = medicoDto.UsuarioId
+            };
+
+            _context.Set<Medico>().Add(medico);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(CriaMedico), new { id = medico.Id }, medico);
+        }
+
         // DELETE: api/Medicos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMedico(int id)
