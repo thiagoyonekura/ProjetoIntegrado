@@ -20,9 +20,6 @@ namespace api.Models
         [Required]
         public DateTime DataHoraFim { get; set; }
 
-        // Relacionamento com a classe Medico
-        public virtual Medico Medico { get; set; }
-
         // Quando um novo HorarioDisponivel é criado, ele é considerado disponível por padrão
         public bool Disponivel { get; set; } = true;
 
