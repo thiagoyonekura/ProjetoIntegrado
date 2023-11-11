@@ -135,8 +135,50 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetConsulta), new { id = consulta.Id }, consulta);
         }
 
-        // DELETE: api/Consultas/5
-        [HttpDelete("{id}")]
+        [HttpPost]
+        [Route("{CadastrarConsulta}")]
+        public ActionResult CadastrarConsulta([FromBody] Consulta consulta)
+        {
+            if (consulta == null)
+            {
+                return BadRequest("Dados da consulta não fornecidos.");
+            }
+
+            if (consulta.MedicoId <= 0)
+            {
+                return BadRequest("Identificador do médico inválido.");
+            }
+
+            if (consulta.PacienteId <= 0)
+            {
+                return BadRequest("Identificador do paciente inválido.");
+            }
+
+            if (consulta.DataHora < DateTime.Now)
+            {
+                return BadRequest("A data e hora da consulta não podem ser no passado.");
+            }
+
+
+            // Chama o método estático da classe Consulta para agendar uma nova consulta
+            bool agendamentoRealizado = Consulta.AgendarConsulta(_context,
+                consulta.MedicoId,
+                consulta.PacienteId,
+                consulta.DataHora,
+                consulta.HorarioDisponivelId,
+                consulta.Observacoes);
+
+            if (!agendamentoRealizado)
+            {
+                return BadRequest("Não foi possível agendar a consulta.");
+            }
+
+            return Ok("Consulta agendada com sucesso.");
+        }
+    
+
+    // DELETE: api/Consultas/5
+    [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConsulta(int id)
         {
             if (_context.Consultas == null)

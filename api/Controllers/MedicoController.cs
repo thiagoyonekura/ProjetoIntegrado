@@ -55,6 +55,7 @@ namespace api.Controllers
         }
 
         // GET: api/medico/5/horarios?data=2023-07-21
+        //Retorna uma lista de horários disponíveis para um médico específico em uma data específica.
         [HttpGet("{medicoId}/horarios")]
         public async Task<ActionResult<IEnumerable<string>>> GetHorariosDisponiveis(int medicoId, [FromQuery] DateTime data)
         {

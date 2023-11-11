@@ -58,6 +58,7 @@ namespace api.Controllers
             return Ok(horariosIndisponiveis);
         }
         // GET: api/Horario
+        //Retorna todos os horários disponíveis
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HorarioDisponivel>>> GetHorariosDisponiveis()
         {
@@ -69,6 +70,7 @@ namespace api.Controllers
         }
 
         // GET: api/Horario/5
+        //Este método busca um HorarioDisponivel específico pelo seu ID.
         [HttpGet("{id}")]
         public async Task<ActionResult<HorarioDisponivel>> GetHorarioDisponivel(int id)
         {
