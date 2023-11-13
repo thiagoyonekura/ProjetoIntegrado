@@ -16,7 +16,7 @@ namespace api.Controllers
     public class HorarioController : ControllerBase
     {
         private readonly SistemaContext _context;
-        // Suponha que cada horário tem duração de 1 hora e você opera das 9h às 17h
+        // Cada consulta tem duração de 1 hora e a clínica funciona das 9h às 17h
         private readonly TimeSpan _duracaoHorario = TimeSpan.FromHours(1);
         private readonly TimeSpan _inicioJornada = new TimeSpan(9, 0, 0); // 9 AM
         private readonly TimeSpan _fimJornada = new TimeSpan(17, 0, 0); // 5 PM
@@ -70,7 +70,7 @@ namespace api.Controllers
         }
 
         // GET: api/Horario/5
-        //Este método busca um HorarioDisponivel específico pelo seu ID.
+        //Este método busca um HorarioDisponivel específico pelo ID.
         [HttpGet("{id}")]
         public async Task<ActionResult<HorarioDisponivel>> GetHorarioDisponivel(int id)
         {
@@ -128,8 +128,76 @@ namespace api.Controllers
             return NoContent(); // Retorna um código de status 204 (No Content) para indicar sucesso sem conteúdo a retornar.
         }
 
-        [HttpPost("gerarHorarios/{medicoId}")]
-        public async Task<IActionResult> GerarHorariosAutomaticos(int medicoId, DateTime data)
+        [HttpPost("gerarHorariosSemana")]
+        public IActionResult GerarHorariosSemana(int medicoId)
+        {
+            DateTime dataAtual = DateTime.Now;
+            // Ajuste para obter a segunda-feira da semana atual
+            int diasParaSegundaFeira = (int)dataAtual.DayOfWeek == 0 ? -6 : 1 - (int)dataAtual.DayOfWeek;
+            DateTime dataInicioSemana = dataAtual.AddDays(diasParaSegundaFeira);
+
+            List<HorarioDisponivel> horarios = new List<HorarioDisponivel>();
+
+            for (int dia = 0; dia < 5; dia++) // Loop para cada dia da semana (segunda a sexta)
+            {
+                DateTime data = dataInicioSemana.AddDays(dia);
+
+                for (int hora = 9; hora < 18; hora++) // Horários das 9 às 18, sendo último horário de agendamento às 17h
+                {
+                    DateTime dataHoraInicio = new DateTime(data.Year, data.Month, data.Day, hora, 0, 0);
+                    DateTime dataHoraFim = dataHoraInicio.AddHours(1);
+
+                    var novoHorario = new HorarioDisponivel
+                    {
+                        MedicoId = medicoId,
+                        DataHoraInicio = dataHoraInicio,
+                        DataHoraFim = dataHoraFim,
+                        Disponivel = true
+                    };
+                    horarios.Add(novoHorario);
+                }
+            }
+
+            _context.HorariosDisponiveis.AddRange(horarios);
+            _context.SaveChanges();
+
+            return Ok("Horários criados com sucesso.");
+        }
+
+        [HttpPost("gerarHorariosSemanaSeguinte")]
+        public IActionResult GerarHorariosSemanaSeguinte(int medicoId)
+        {
+            DateTime dataInicioSemana = DateTime.Now.AddDays(7 - (int)DateTime.Now.DayOfWeek); // Começar na próxima segunda-feira
+            List<HorarioDisponivel> horarios = new List<HorarioDisponivel>();
+
+            for (int dia = 0; dia < 5; dia++) // Loop para cada dia da semana (segunda a sexta)
+            {
+                DateTime dataAtual = dataInicioSemana.AddDays(dia);
+
+                for (int hora = 9; hora < 18; hora++) // Horários das 9 às 18, sendo último horário de agendamento às 17h
+                {
+                    DateTime dataHoraInicio = new DateTime(dataAtual.Year, dataAtual.Month, dataAtual.Day, hora, 0, 0);
+                    DateTime dataHoraFim = dataHoraInicio.AddHours(1);
+
+                    var novoHorario = new HorarioDisponivel
+                    {
+                        MedicoId = medicoId,
+                        DataHoraInicio = dataHoraInicio,
+                        DataHoraFim = dataHoraFim,
+                        Disponivel = true
+                    };
+                    horarios.Add(novoHorario);
+                }
+            }
+
+            _context.HorariosDisponiveis.AddRange(horarios);
+            _context.SaveChanges();
+
+            return Ok("Horários criados com sucesso.");
+        }
+
+        [HttpPost("gerarHorariosDia/{medicoId}")]
+        public async Task<IActionResult> GerarHorariosDia(int medicoId, DateTime data)
         {
             // Verificar se a data é válida
             if (data.Date < DateTime.Now.Date)

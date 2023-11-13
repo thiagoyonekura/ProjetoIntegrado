@@ -69,7 +69,10 @@ namespace api.Controllers
           {
               return NotFound();
           }
-            var paciente = await _context.Pacientes.FindAsync(id);
+            var paciente = await _context.Pacientes
+                            .Include(p => p.Consultas)
+                            .Include(p => p.Usuario)
+                            .FirstOrDefaultAsync(p => p.Id == id);
 
             if (paciente == null)
             {
