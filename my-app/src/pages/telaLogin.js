@@ -46,7 +46,7 @@ export default props=> {
             onChangeText={ (valorSenha) => setValorSenha(valorSenha) }/>
         
         <BotaoLogin onPress={()=>{
-             props.navigation.push("Agenda") 
+             props.navigation.push("Home") 
         }}>
                 <Texto2>Fazer login</Texto2>
             </BotaoLogin>
