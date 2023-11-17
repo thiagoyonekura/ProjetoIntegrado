@@ -2,6 +2,8 @@ import {  TextInput, TouchableOpacity, View } from "react-native"
 import styled from "styled-components"
 import Estilo from "../components/Estilo";
 
+// usuario/usuarioepaciente
+
 export default function TelaCadastro(props){
     const BotaoCadastro = styled.TouchableOpacity`
     background-color:#000;

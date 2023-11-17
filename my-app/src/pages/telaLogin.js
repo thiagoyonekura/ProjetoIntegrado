@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, TextInput, Text } from "react-native";
+import { TouchableOpacity, View, TextInput, Text, Alert } from "react-native";
 import styled from "styled-components";
 import { useState } from "react";
 import Estilo from "../components/Estilo";
@@ -7,6 +7,33 @@ export default props=> {
     [valorLogin, setValorLogin] = useState('');
     [valorSenha, setValorSenha] = useState('');
     
+    const handleLogin = async () => {
+        try {
+          const response = await fetch('https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/usuario/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email : valorLogin, senha : valorSenha }),
+          });
+      
+          const data = await response.json();
+      
+          if (response.status === 200 && data) {
+            // Login foi bem-sucedido
+            console.log(data)
+        
+            props.navigation.push("Home") 
+            // Aqui você pode redirecionar para outra tela ou salvar o token
+          } else {
+            // Login falhou
+            Alert.alert('Erro', data.message || 'Falha no login');
+          }
+        } catch (error) {
+          // Erro de rede ou código de erro não capturado
+          Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+        }
+      };
     const Texto = styled.Text`
     text-align:center;
     `
@@ -46,7 +73,7 @@ export default props=> {
             onChangeText={ (valorSenha) => setValorSenha(valorSenha) }/>
         
         <BotaoLogin onPress={()=>{
-             props.navigation.push("Home") 
+            handleLogin()
         }}>
                 <Texto2>Fazer login</Texto2>
             </BotaoLogin>
