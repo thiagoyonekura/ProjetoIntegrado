@@ -18,19 +18,20 @@ export default StyleSheet.create({
     loginTextInputs:{
         width: 300,
         height: 45,
-        marginTop: 10,
+        marginTop: 20,
         fontSize: 15,
         borderRadius: 30,
         padding: 10,
         paddingLeft: 20,
         color: "#084160",
         borderColor: "#222",
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
+        //borderWidth: StyleSheet.hairlineWidth,
     },
     loginForgotPassword:{
         color: 'white',
         marginTop: 25,
-        marginBottom: 45,
+        marginBottom: 45
     },
     loginButton:{
         width: 300,

@@ -23,11 +23,14 @@ export default function App() {
           options={{title: 'Cadastro de usuários'}}/>
 
           <Stack.Screen name='Home' component={telaLogado} options={({navigation}) => ({headerRight: () =>(<>
-          <TouchableOpacity onPress={()=> (navigation.navigate('Agendar'))}>
+          <TouchableOpacity onPress={()=> (navigation.navigate('Agendar'))}
+          style={{ flexDirection: 'row', alignItems: 'center', marginRight: 8 }}>
+            
             <Ionicons name="add" size={24} color="black" />
+            <Text style={{ marginRight: 0, fontWeight: 'bold' }}>Nova Consulta</Text>            
             </TouchableOpacity>
           <TouchableOpacity onPress={()=> (navigation.navigate('Perfil'))}>
-          <AntDesign name="user" size={24} color="black" />
+          <AntDesign name="user" size={30} color="black" />
           </TouchableOpacity>
           </>)})}/>
           <Stack.Screen name='Agendar' component={telaMedicos} options={({navigation})=>({headerLeft: ()=>(<>

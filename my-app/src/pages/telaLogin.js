@@ -27,11 +27,11 @@ export default props=> {
             // Aqui você pode redirecionar para outra tela ou salvar o token
           } else {
             // Login falhou
-            Alert.alert('Erro', data.message || 'Falha no login');
+            Alert.alert('Erro', data.message || 'Falha no login.');
           }
         } catch (error) {
           // Erro de rede ou código de erro não capturado
-          Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+          Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
         }
       };
     const Texto = styled.Text`
@@ -85,6 +85,16 @@ export default props=> {
         >
             <Texto>Criar conta</Texto>
         </TouchableOpacity>
+
+        <TouchableOpacity
+        onPress={() => {
+          Alert.alert(
+            "Redefinição de Senha",
+            "Por favor, entre em contato com a clínica para redefinir sua senha."
+          );
+        }}>
+        <Texto>Esqueceu a senha?</Texto>
+      </TouchableOpacity>
         </View>
     )
 
