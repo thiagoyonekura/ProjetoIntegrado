@@ -9,6 +9,8 @@ import telaMedicos from './src/pages/telaMedicos';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import telaPerfil from './src/pages/telaPerfil';
 import MeuContextoProvidender from './src/context/UserContext';
+import telaHorarios from './src/pages/telaHorarios';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,6 +22,8 @@ export default function App() {
 
           <Stack.Screen name='Cadastro' component={TelaCadastro}
           options={{title: 'Cadastro de usuários'}}/>
+          <Stack.Screen name='Horarios' component={telaHorarios}
+          options={{title: 'Horarios'}}/>
 
           <Stack.Screen name='Home' component={telaLogado} options={({navigation}) => ({headerRight: () =>(<>
           <TouchableOpacity onPress={()=> (navigation.navigate('Agendar'))}
