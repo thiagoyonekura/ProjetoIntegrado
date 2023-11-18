@@ -10,7 +10,7 @@ export default props => {
     const [data, setData] = useState([]);
     const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/medico';
     const navigation = useNavigation()
-    const getMovies = async () => {
+    const getMedicos = async () => {
         try{
             const response = await fetch(URL);
             const json = await response.json();
@@ -23,13 +23,13 @@ export default props => {
     }
 
     useEffect(()=>{
-        getMovies();
+        getMedicos();
     }, [])
 
     return(
         <>
             <View>
-                <Text>Exemplo API</Text>
+                <Text>Profissionais</Text>
 
                 {isLoading ? (
                     <ActivityIndicator size={80} />
@@ -43,7 +43,7 @@ export default props => {
                             </Text>
                             <TouchableOpacity
                             onPress={()=>{
-                                navigation.navigate('Horarios');
+                                navigation.navigate('Horarios', { medicoId: item.id });
                             }}
                             ><AntDesign name="right" size={24} color="black" /></TouchableOpacity>
                             </>
@@ -53,7 +53,7 @@ export default props => {
                     />
                 )
                 }
-                <Button title="Atualizar" onPress={ () => getMovies()} />
+                
             </View>
         </>
     )
