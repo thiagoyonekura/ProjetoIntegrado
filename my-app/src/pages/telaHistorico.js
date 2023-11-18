@@ -22,13 +22,19 @@ export default props => {
 
     // Função para formatar a data dd/mm/yyyy hh:mm
     const formatDate = (dateString) => {
+        // Cria a data como se estivesse em UTC
         const date = new Date(dateString);
+        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+        date.setTime(date.getTime() + userTimezoneOffset);
+    
+        // Formata a data no fuso horário local
         return date.toLocaleDateString('pt-BR', { 
             day: '2-digit', 
             month: '2-digit', 
             year: 'numeric',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            hour12: false
         });
     };
 
