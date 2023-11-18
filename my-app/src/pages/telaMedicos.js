@@ -7,7 +7,7 @@ import Estilo from "../components/Estilo";
 export default props => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
-    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/medico'; //"https://localhost:7010/api/medico/all";
+    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/medico';
 
     const getMovies = async () => {
         try{

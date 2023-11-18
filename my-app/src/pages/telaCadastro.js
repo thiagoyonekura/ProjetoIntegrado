@@ -1,40 +1,48 @@
-import {  TextInput, TouchableOpacity, View } from "react-native"
+import {  Alert, TextInput, TouchableOpacity, View } from "react-native"
 import styled from "styled-components"
 import Estilo from "../components/Estilo";
-import { useState } from "react";
-
-// usuario/usuarioepaciente
+import { useState, useContext } from "react";
+import { MeuContexto } from "../context/UserContext";
 
 export default function TelaCadastro(props){
-    [nome, setNome] = useState('');
-    [email, setEmail] = useState('');
-    [tel, setTel] = useState('')
-
-    const {userId, userSetId, base, set} = useContext(MeuContexto)
+    [userNome, setNome] = useState('');
+    [userEmail, setEmail] = useState('');
+    [tel, setTel] = useState('');
+    [userCpf, setCpf] = useState('');
+    [nasc, setNasc] = useState('');
+    [userSenha, setSenha] = useState('');
+    [confirma, setConfirma] = useState('');
+    const {set} = useContext(MeuContexto)
     
     const handleLogin = async () => {
-        try {
-          const response = await fetch('https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/usuario/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email : valorLogin, senha : valorSenha }),
-          });
-      
-          const data = await response.json();
-      
-          if (response.status === 200 && data) {
-            set(data)
-            props.navigation.push("Home") 
-            // Aqui você pode redirecionar para outra tela ou salvar o token
-          } else {
-            // Login falhou
-            Alert.alert('Erro', data.message || 'Falha no login.');
+        if(userSenha === confirma){
+          const dataNasc = new Date(nasc.slice(4,7), nasc.slice(2,3), nasc.slice(0,1), 0,0,0);
+          const data = {id:0, nome: userNome, cpf: userCpf, dataNascimento: dataNasc, email: userEmail, telefone: tel, senha: userSenha}
+          try {
+            const response = await fetch('https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/usuario/UsuarioEPaciente', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            });
+        
+        
+            if (response.status === 200 || response.status === 201) {
+              set(data)
+              Alert.alert('Cadastrado com sucesso!')
+              props.navigation.goBack()
+              // Aqui você pode redirecionar para outra tela ou salvar o token
+            } else {
+              // Login falhou
+              Alert.alert('Erro', data.message || 'Erro ao cadastrar.');
+            }
+          } catch (error) {
+            // Erro de rede ou código de erro não capturado
+            Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
           }
-        } catch (error) {
-          // Erro de rede ou código de erro não capturado
-          Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+        }else{
+          Alert.alert('Os campos de senha devem ser iguais');
         }
       };
       
@@ -61,6 +69,8 @@ export default function TelaCadastro(props){
             placeholder="Nome Completo" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
+            value={userNome}
+            onChangeText={ (userNome) => setNome(userNome)}
             /> 
             <TextInput 
             inputMode="email" 
@@ -69,6 +79,8 @@ export default function TelaCadastro(props){
             placeholder="E-mail" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
+            value={userEmail}
+            onChangeText={ (userEmail) => setEmail(userEmail)}
             />
             <TextInput 
             inputMode="tel" 
@@ -77,6 +89,8 @@ export default function TelaCadastro(props){
             placeholder="Telefone" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
+            value={tel}
+            onChangeText={ (tel) => setTel(tel)}
             />
             <TextInput 
             keyboardType="numeric" 
@@ -84,6 +98,8 @@ export default function TelaCadastro(props){
             placeholder="CPF" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
+            value={userCpf}
+            onChangeText={ (userCpf) => setCpf(userCpf)}
             />
             <TextInput 
             keyboardType="numeric" 
@@ -91,6 +107,8 @@ export default function TelaCadastro(props){
             placeholder="Data de Nascimento" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
+            value={nasc}
+            onChangeText={ (nasc) => setNasc(nasc)}
             />
             <TextInput 
             caretHidden={false} 
@@ -99,6 +117,8 @@ export default function TelaCadastro(props){
             placeholderTextColor={'#555'}
             secureTextEntry={true}
             style={Estilo.loginTextInputs}
+            value={userSenha}
+            onChangeText={ (userSenha) => setSenha(userSenha) }
             />
             <TextInput 
             caretHidden={false} 
@@ -107,8 +127,11 @@ export default function TelaCadastro(props){
             placeholderTextColor={'#555'}
             secureTextEntry={true}
             style={Estilo.loginTextInputs}
+            value={confirma}
+            onChangeText={ (confirma) => setConfirma(confirma)}
             />
-            <BotaoCadastro>
+            <BotaoCadastro
+            onPress={()=>{handleLogin()}}>
                 <Texto2>Cadastrar</Texto2>
             </BotaoCadastro>
             <TouchableOpacity onPress={() => {

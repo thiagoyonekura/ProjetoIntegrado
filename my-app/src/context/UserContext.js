@@ -3,12 +3,11 @@ export const MeuContexto = createContext();
 
 export const MeuContextoProvidender= ({children})=>{
     [userId, setUserId] = useState('')
-    const base = 'Hello'
     function set(id){
         setUserId(id)
     }
     return(
-        <MeuContexto.Provider value={{userId, setUserId, base, set}}>
+        <MeuContexto.Provider value={{userId, set}}>
         {children}
         </MeuContexto.Provider>
     )
