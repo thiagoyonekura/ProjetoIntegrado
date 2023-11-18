@@ -5,7 +5,7 @@ import telaHistorico from '../pages/telaHistorico';
 const Tab = createMaterialTopTabNavigator();
 
 export default props => {
-    
+    console.disableYellowBox = true;
     return(
             <>
                 <Tab.Navigator 

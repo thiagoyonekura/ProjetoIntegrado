@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
-import { ActivityIndicator, Button, FlatList, Text, TouchableOpacity } from "react-native"
+import { useContext, useEffect, useState } from "react"
+import { ActivityIndicator, FlatList, Text, TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import Estilo from "../components/Estilo";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { MedicoContext } from "../context/MedicoContext";
 
 export default props => {
+    const {setMedicoId} = useContext(MedicoContext)
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
     const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/medico';
@@ -43,7 +45,8 @@ export default props => {
                             </Text>
                             <TouchableOpacity
                             onPress={()=>{
-                                navigation.navigate('Horarios', { medicoId: item.id });
+                                navigation.navigate('Horarios');
+                                setMedicoId(item.id)
                             }}
                             ><AntDesign name="right" size={24} color="black" /></TouchableOpacity>
                             </>

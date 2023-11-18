@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react"
-import { ActivityIndicator, Button, FlatList, Text, TouchableOpacity } from "react-native"
+import { useContext, useEffect, useState } from "react"
+import { Alert, ActivityIndicator, FlatList, Text, TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import Estilo from "../components/Estilo";
-import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/native";
+import { MedicoContext } from "../context/MedicoContext";
+import { MeuContexto } from "../context/UserContext";
 
 export default props => {
-    const item = props.item
-   
-    console.log(item)
-    const { medicoId } = props.route.params;
-    const Id = 1
+    const {medico} = useContext(MedicoContext)
+    const {userId} = useContext(MeuContexto)
+    const Id = medico
+    const user = userId.paciente.id;
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
-    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/horario/medicos/' + Id + 'disponiveis';
-    const navigation = useNavigation()
+    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/horario/medicos/' + Id + '/disponiveis';
+    
     const getHorarios = async () => {
         try{
             const response = await fetch(URL);
@@ -27,9 +26,40 @@ export default props => {
             setIsLoading(false);
         }
     }
-
+    const agendar = async (id) => {
+        try{
+            const response = await fetch('https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/consulta/CriaConsulta', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pacienteId: user, medicoId: medico, horarioId: id, observacoes: "Nenhuma" }),
+              });
+            
+              if (response.status === 200 || response.status === 201) {
+                
+                Alert.alert('Agendado com sucesso!')
+              } else {
+                Alert.alert('Erro', data.message || 'Erro ao cadastrar.');
+              }
+        } catch(error) {
+            console.error(error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR', { 
+            day: '2-digit', 
+            month: '2-digit', 
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
     useEffect(()=>{
-        //getHorarios();
+        getHorarios();
     }, [])
 
     return(
@@ -46,13 +76,13 @@ export default props => {
                         renderItem={ ({item})=>(
                             <>
                             <Text style={Estilo.textFlatList}>
-                                
+                                {formatDate(item.dataHoraInicio)} - {formatDate(item.dataHoraFim)}
                             </Text>
                             <TouchableOpacity
                             onPress={()=>{
-                                navigation.navigate('Horarios');
+                                agendar(item.id)
                             }}
-                            ><AntDesign name="right" size={24} color="black" /></TouchableOpacity>
+                            ><Text>Agendar</Text></TouchableOpacity>
                             </>
                         )
                         }

@@ -32,13 +32,10 @@ export default function TelaCadastro(props){
               set(data)
               Alert.alert('Cadastrado com sucesso!')
               props.navigation.goBack()
-              // Aqui você pode redirecionar para outra tela ou salvar o token
             } else {
-              // Login falhou
               Alert.alert('Erro', data.message || 'Erro ao cadastrar.');
             }
           } catch (error) {
-            // Erro de rede ou código de erro não capturado
             Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
           }
         }else{

@@ -10,12 +10,17 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import telaPerfil from './src/pages/telaPerfil';
 import MeuContextoProvidender from './src/context/UserContext';
 import telaHorarios from './src/pages/telaHorarios';
+import MedicoProvidender from './src/context/MedicoContext';
+import { LogBox } from 'react-native';
 
 
 export default function App() {
+  LogBox.ignoreAllLogs();
   const Stack = createNativeStackNavigator();
+  console.disableYellowBox = true;
   return (
       <NavigationContainer>
+        <MedicoProvidender>
         <MeuContextoProvidender>
         <Stack.Navigator initialRouteName='TelaLogin' screenOptions={{headerShown: true, headerBackVisible:false}}>
           <Stack.Screen name="Entrar" component={TelaLogin} ></Stack.Screen>
@@ -48,6 +53,7 @@ export default function App() {
           </>)})}></Stack.Screen>
         </Stack.Navigator>
         </MeuContextoProvidender>
+        </MedicoProvidender>
       </NavigationContainer>  
   );
 }

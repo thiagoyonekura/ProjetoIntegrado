@@ -1,10 +1,6 @@
 import { View, Text, ActivityIndicator, FlatList, Button } from "react-native"
-import Estilo from "../components/Estilo"
 import { useContext, useEffect, useState } from "react"
 import { MeuContexto } from "../context/UserContext";
-
-// botao de cancelar
-// put
 
 export default props =>{
     const {userId} = useContext(MeuContexto)

@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 export const MeuContexto = createContext();
 
 export const MeuContextoProvidender= ({children})=>{
-    [userId, setUserId] = useState('')
+    [userId, setUserId] = useState('');
     function set(id){
         setUserId(id)
     }
@@ -13,4 +13,4 @@ export const MeuContextoProvidender= ({children})=>{
     )
 }
 
-export default MeuContextoProvidender
+export default MeuContextoProvidender;

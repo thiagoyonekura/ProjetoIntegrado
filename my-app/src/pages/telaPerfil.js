@@ -1,10 +1,9 @@
-import {  Alert, TextInput, TouchableOpacity, View } from "react-native"
+import {  Alert, TextInput, View } from "react-native"
 import styled from "styled-components"
 import Estilo from "../components/Estilo";
 import { useState, useContext } from "react";
 import { MeuContexto } from "../context/UserContext";
-// **************PUT**************
-//paciente/{id}
+
 export default props =>{
     const {userId, set} = useContext(MeuContexto)
     const initialEmail = userId.usuario.email;
@@ -30,13 +29,10 @@ export default props =>{
               set(data)
               Alert.alert('Cadastro atualizado com sucesso!')
               props.navigation.goBack()
-              // Aqui você pode redirecionar para outra tela ou salvar o token
             } else {
-              // Login falhou
               Alert.alert('Erro', data.message || 'Erro ao atualizar.');
             }
           } catch (error) {
-            // Erro de rede ou código de erro não capturado
             Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
           }
         }
