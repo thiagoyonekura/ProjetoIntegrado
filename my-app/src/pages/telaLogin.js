@@ -1,11 +1,13 @@
-import { TouchableOpacity, View, TextInput, Text, Alert } from "react-native";
+import { TouchableOpacity, View, TextInput, Alert } from "react-native";
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Estilo from "../components/Estilo";
+import { MeuContexto } from "../context/UserContext";
 
 export default props=> {
     [valorLogin, setValorLogin] = useState('');
     [valorSenha, setValorSenha] = useState('');
+    const {set} = useContext(MeuContexto)
     
     const handleLogin = async () => {
         try {
@@ -20,17 +22,12 @@ export default props=> {
           const data = await response.json();
       
           if (response.status === 200 && data) {
-            // Login foi bem-sucedido
-            console.log(data)
-        
+            set(data)
             props.navigation.push("Home") 
-            // Aqui você pode redirecionar para outra tela ou salvar o token
           } else {
-            // Login falhou
             Alert.alert('Erro', data.message || 'Falha no login.');
           }
         } catch (error) {
-          // Erro de rede ou código de erro não capturado
           Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
         }
       };

@@ -1,18 +1,17 @@
-import { TouchableOpacity } from "react-native"
-import { View, Text, ActivityIndicator, FlatList, Button } from "react-native"
+import { View, Text, ActivityIndicator, FlatList } from "react-native"
 import Estilo from "../components/Estilo"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { MeuContexto } from "../context/UserContext";
 
 // botao de cancelar
 // put
-//consulta/{id}/cancelar
 
 export default props =>{
-    const Id = props.id;
+    const {userId} = useContext(MeuContexto)
+    const Id = userId.usuario.id;
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
-    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/paciente/' + {Id} + '/consultas/agendadas'; 
-
+    const URL = 'https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/paciente/' + Id + '/consultas/agendadas'; 
     const getMovies = async () => {
         try{
             const response = await fetch(URL);
@@ -34,7 +33,6 @@ export default props =>{
         <>
             <View>
                 <Text>Minhas Consultas: </Text>
-
                 {isLoading ? (
                     <ActivityIndicator size={80} />
                 ) : (
@@ -43,13 +41,12 @@ export default props =>{
                         keyExtractor={({id})=>id}
                         renderItem={ ({item})=>(
                             <Text style={Estilo.textFlatList}>
-                                - {item.NomeMedico} - {item.DataHora} - {item.Status} - {item.Observacoes}
+                                {item.dataHora} - {item.nomeMedico} - {item.observações}
                             </Text>
                         )
                         }
                     />
                 )
                 }
-                <Button title="Atualizar" onPress={ () => getMovies()} />
                 </View></>)
 }

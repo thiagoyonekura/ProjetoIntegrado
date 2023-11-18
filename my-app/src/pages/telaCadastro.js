@@ -1,10 +1,43 @@
 import {  TextInput, TouchableOpacity, View } from "react-native"
 import styled from "styled-components"
 import Estilo from "../components/Estilo";
+import { useState } from "react";
 
 // usuario/usuarioepaciente
 
 export default function TelaCadastro(props){
+    [nome, setNome] = useState('');
+    [email, setEmail] = useState('');
+    [tel, setTel] = useState('')
+
+    const {userId, userSetId, base, set} = useContext(MeuContexto)
+    
+    const handleLogin = async () => {
+        try {
+          const response = await fetch('https://projetointegrado2023-dev-tgsa.2.sg-1.fl0.io/api/usuario/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email : valorLogin, senha : valorSenha }),
+          });
+      
+          const data = await response.json();
+      
+          if (response.status === 200 && data) {
+            set(data)
+            props.navigation.push("Home") 
+            // Aqui você pode redirecionar para outra tela ou salvar o token
+          } else {
+            // Login falhou
+            Alert.alert('Erro', data.message || 'Falha no login.');
+          }
+        } catch (error) {
+          // Erro de rede ou código de erro não capturado
+          Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+        }
+      };
+      
     const BotaoCadastro = styled.TouchableOpacity`
     background-color:#000;
     margin: 20px 25%;

@@ -1,79 +1,17 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react';
-//import users from '../data/users';
+import React, { createContext, useState } from 'react';
+export const MeuContexto = createContext();
 
-const URL = "http://localhost:3306/api/usuario"
-
-var initialState = []
-const UserContext = createContext({})
-
-const actions = {
-    createUser(state, action){
-        const newUser = action.payload
-        newUser.id = Math.random()
-        return{
-            ...state,
-            users: [...state.users, newUser]
-        }
-    },
-
-    updateUser(state, action){
-        const userUpdated = action.payload
-        return{
-            ...state,
-            users: state.users.map(u => u.id === userUpdated.id ? userUpdated: u )
-        }
-    },
-    
-    deleteUser(state, action){
-        const  userReceive = action.payload
-        return {
-            ...state,
-            users: state.users.filter(u => u.id !== userReceive.id)
-        }
+export const MeuContextoProvidender= ({children})=>{
+    [userId, setUserId] = useState('')
+    const base = 'Hello'
+    function set(id){
+        setUserId(id)
     }
-}
-
-export const UserProvider = props => {
-
-    const [users, setUsers] = useState([]);
-
-    useEffect(()=>{
-        getUsers();
-    }, [])
-    
-    useEffect(()=>{
-        initialState = {users};
-    }, [users])
-
-    const getUsers = async () => {
-        try{
-            const response = await fetch(URL);
-            const json = await response.json();
-            setUsers(json);
-        }
-        catch(error){
-            console.error(error);
-        }
-    }
-
-    function reducer(state, action){
-        const fn = actions[action.type]
-
-        return fn ? fn(state, action) : state
-    }
-
-    const [state, dispatch] = useReducer(reducer, initialState)
-
-    return (
-        <UserContext.Provider
-            value={{
-                state,
-                dispatch
-            }}
-        >
-            {props.children}
-        </UserContext.Provider>
+    return(
+        <MeuContexto.Provider value={{userId, setUserId, base, set}}>
+        {children}
+        </MeuContexto.Provider>
     )
 }
 
-export default UserContext
+export default MeuContextoProvidender
