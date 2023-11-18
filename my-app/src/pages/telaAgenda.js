@@ -40,7 +40,7 @@ export default props =>{
                         keyExtractor={({id})=>id}
                         renderItem={ ({item})=>(
                             <Text style={Estilo.textFlatList}>
-                                {item.dataHora} - {item.nomeMedico} - {item.observações}
+                                {item.dataHora} - {item.nomeMedico} - {item.observacoes}
                             </Text>
                         )
                         }
