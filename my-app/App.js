@@ -29,7 +29,7 @@ export default function App() {
           options={{title: 'Cadastro de usuários'}}/>
 
           <Stack.Screen name='Horarios' component={telaHorarios}
-          options={{title: 'Horários'}}/>
+          options={{title: 'Agendar Horário', headerTitleAlign: 'center'}}/>
 
           <Stack.Screen name='Home' component={telaLogado} options={({navigation}) => ({headerRight: () =>(<>
           <TouchableOpacity onPress={()=> (navigation.navigate('Agendar'))}
