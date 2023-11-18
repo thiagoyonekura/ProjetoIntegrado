@@ -38,7 +38,7 @@ export default props =>{
         }
     
     const BotaoCadastro = styled.TouchableOpacity`
-    background-color:#000;
+    background-color:#1865AC;
     margin: 20px 25%;
     text-align:center;
     border-radius:30px;
