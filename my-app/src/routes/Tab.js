@@ -14,7 +14,7 @@ export default props => {
                     tabBarActiveTintColor:'#5599ff',
                     tabBarInactiveTintColor: 'black',
                 }}>
-                <Tab.Screen name="Home" component={telaAgenda}></Tab.Screen>
+                <Tab.Screen name="Consultas Agendadas" component={telaAgenda}></Tab.Screen>
                 <Tab.Screen name="Histórico" component={telaHistorico} ></Tab.Screen>
                 </Tab.Navigator>
             </>
