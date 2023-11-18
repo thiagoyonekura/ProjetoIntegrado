@@ -27,13 +27,13 @@ export default function App() {
 
           <Stack.Screen name='Cadastro' component={TelaCadastro}
           options={{title: 'Cadastro de usuários'}}/>
+
           <Stack.Screen name='Horarios' component={telaHorarios}
-          options={{title: 'Horarios'}}/>
+          options={{title: 'Horários'}}/>
 
           <Stack.Screen name='Home' component={telaLogado} options={({navigation}) => ({headerRight: () =>(<>
           <TouchableOpacity onPress={()=> (navigation.navigate('Agendar'))}
           style={{ flexDirection: 'row', alignItems: 'center', marginRight: 8 }}>
-            
             <Ionicons name="add" size={24} color="black" />
             <Text style={{ marginRight: 0, fontWeight: 'bold' }}>Nova Consulta</Text>            
             </TouchableOpacity>
@@ -41,11 +41,16 @@ export default function App() {
           <AntDesign name="user" size={30} color="black" />
           </TouchableOpacity>
           </>)})}/>
+
           <Stack.Screen name='Agendar' component={telaMedicos} options={({navigation})=>({headerLeft: ()=>(<>
           <TouchableOpacity onPress={() => {
             navigation.goBack()
         }}><AntDesign name="back" size={24} color="black" /></TouchableOpacity>
-          </>)})}></Stack.Screen>
+          </>),
+          title: 'Agendar Consulta',
+          headerTitleAlign: 'center'
+        })}></Stack.Screen>
+        
           <Stack.Screen name='Perfil' component={telaPerfil} options={({navigation})=>({headerLeft: ()=>(<>
           <TouchableOpacity onPress={() => {
             navigation.goBack()
