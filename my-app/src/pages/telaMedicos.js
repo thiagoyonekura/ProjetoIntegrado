@@ -55,6 +55,9 @@ export default (props) => {
           <FlatList
             data={data}
             keyExtractor={({ id }) => id}
+            ItemSeparatorComponent={() => (
+                <View style={{ height: 1, backgroundColor: '#CED0CE', marginLeft: 10, marginRight: 10 }} />
+              )}
             renderItem={({ item }) => (
               <View
                 style={{

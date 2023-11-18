@@ -90,7 +90,9 @@ export default (props) => {
           }}
         >
           <Text style={{ flex: 1, textAlign: "center" }}>Data e Hora</Text>
-          <Text style={{ width: 100, textAlign: "center", marginRight: 10 }}>Ações</Text>
+          <Text style={{ width: 100, textAlign: "center", marginRight: 10 }}>
+            Ações
+          </Text>
         </View>
 
         {isLoading ? (
@@ -100,8 +102,15 @@ export default (props) => {
             data={data}
             keyExtractor={({ id }) => id}
             ItemSeparatorComponent={() => (
-                <View style={{ height: 1, backgroundColor: '#CED0CE', marginLeft: 10, marginRight: 10 }} />
-              )}
+              <View
+                style={{
+                  height: 1,
+                  backgroundColor: "#CED0CE",
+                  marginLeft: 10,
+                  marginRight: 10,
+                }}
+              />
+            )}
             renderItem={({ item }) => (
               <View
                 style={{
@@ -111,30 +120,34 @@ export default (props) => {
                   backgroundColor: "#E3F2FD",
                 }}
               >
-                <Text style={{ flex: 1,padding: 5, textAlign: 'center' }}>
+                <Text style={{ flex: 1, padding: 5, textAlign: "center" }}>
                   {formatDate(item.dataHoraInicio)}
                 </Text>
                 <TouchableOpacity
-      onPress={() => {
-        agendar(item.id);
-      }}
-      style={{
-        width: 100,
-        backgroundColor: "#4CAF50", // Cor de fundo do botão
-        padding: 5, // Espaçamento interno
-        borderRadius: 5, // Bordas arredondadas
-        justifyContent: 'center', // Centraliza o conteúdo verticalmente
-        marginRight: 10, // Adiciona margem à direita, movendo o botão para a esquerda
-      }}
-      activeOpacity={0.7} // Opacidade ao tocar
-    >
-      <Text style={{ 
-        color: "white", // Cor do texto
-        textAlign: 'center', // Alinhamento do texto
-        fontWeight: 'bold', // Peso da fonte
-      }}>Agendar</Text>
-    </TouchableOpacity>
-  </View>
+                  onPress={() => {
+                    agendar(item.id);
+                  }}
+                  style={{
+                    width: 100,
+                    backgroundColor: "#4CAF50", // Cor de fundo do botão
+                    padding: 5, // Espaçamento interno
+                    borderRadius: 5, // Bordas arredondadas
+                    justifyContent: "center", // Centraliza o conteúdo verticalmente
+                    marginRight: 10, // Adiciona margem à direita, movendo o botão para a esquerda
+                  }}
+                  activeOpacity={0.7} // Opacidade ao tocar
+                >
+                  <Text
+                    style={{
+                      color: "white", // Cor do texto
+                      textAlign: "center", // Alinhamento do texto
+                      fontWeight: "bold", // Peso da fonte
+                    }}
+                  >
+                    Agendar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             )}
           />
         )}

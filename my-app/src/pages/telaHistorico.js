@@ -51,6 +51,9 @@ export default props => {
                     <FlatList 
                         data={data}
                         keyExtractor={({id})=>id}
+                        ItemSeparatorComponent={() => (
+                            <View style={{ height: 1, backgroundColor: '#CED0CE', marginLeft: 10, marginRight: 10 }} />
+                          )}
                         renderItem={ ({item})=>(
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 8, backgroundColor: '#E3F2FD' }}>
                             <Text style={{ flex: 1, textAlign: 'center' }}>{formatDate(item.dataHora)}</Text>
