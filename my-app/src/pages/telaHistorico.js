@@ -1,6 +1,7 @@
 import { View, Text, ActivityIndicator, FlatList } from "react-native"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useCallback, useState } from "react"
 import { MeuContexto } from "../context/UserContext";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default props => {
     const {userId} = useContext(MeuContexto)
@@ -38,9 +39,12 @@ export default props => {
         });
     };
 
-    useEffect(()=>{
-        getHistorico();
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+          getHistorico();
+        }, [])
+      );
+
     return (
         <>
         <View>

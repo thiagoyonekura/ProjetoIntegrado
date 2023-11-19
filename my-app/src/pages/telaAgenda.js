@@ -1,6 +1,7 @@
 import { View, Text, ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useCallback, useState } from "react";
 import { MeuContexto } from "../context/UserContext";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default (props) => {
   const { userId } = useContext(MeuContexto);
@@ -65,9 +66,11 @@ export default (props) => {
     });
 };
 
-  useEffect(() => {
+useFocusEffect(
+  useCallback(() => {
     getAgenda();
-  }, []);
+  }, [])
+);
 
   return (
     <>
