@@ -22,18 +22,24 @@ export default (props) => {
     Id +
     "/disponiveis";
 
-  const getHorarios = async () => {
-    try {
-      const response = await fetch(URL);
-      const json = await response.json();
-      console.log(json);
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const getHorarios = async () => {
+      try {
+        const response = await fetch(URL);
+        const json = await response.json();
+        console.log(json);
+    
+        // Ordena os horários em ordem crescente de data e hora
+        const sortedData = json.sort((a, b) => {
+          return Date.parse(a.dataHoraInicio) - Date.parse(b.dataHoraInicio);
+        });
+    
+        setData(sortedData);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
   const agendar = async (id) => {
     try {
       const response = await fetch(
