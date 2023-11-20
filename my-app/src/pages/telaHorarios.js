@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { View } from "react-native";
-import Estilo from "../components/Estilo";
 import { MedicoContext } from "../context/MedicoContext";
 import { MeuContexto } from "../context/UserContext";
 

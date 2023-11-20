@@ -85,7 +85,6 @@ useFocusEffect(
         >
           <Text style={{ flex: 1, textAlign: "center" }}>Data</Text>
           <Text style={{ flex: 1, textAlign: "center" }}>Médico</Text>
-          <Text style={{ flex: 1, textAlign: "center" }}>Observações</Text>
           <Text style={{ width: 100, textAlign: "center" }}>Ações</Text>
         </View>
         {isLoading ? (
@@ -118,9 +117,6 @@ useFocusEffect(
                 </Text>
                 <Text style={{ flex: 1, padding: 8, textAlign: "center" }}>
                   {item.nomeMedico}
-                </Text>
-                <Text style={{ flex: 1, padding: 8,textAlign: "center" }}>
-                  {item.observacoes}
                 </Text>
                 <View style={{ width: 100, justifyContent: "center" }}>
                   <TouchableOpacity
