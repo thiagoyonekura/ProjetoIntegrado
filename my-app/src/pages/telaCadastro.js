@@ -113,7 +113,7 @@ export default function TelaCadastro(props){
             <TextInput 
             autoCapitalize="words" 
             maxLength={50} 
-            placeholder="Nome Completo" 
+            placeholder="Nome Completo *" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
             value={userNome}
@@ -123,7 +123,7 @@ export default function TelaCadastro(props){
             inputMode="email" 
             keyboardType="email-address" 
             maxLength={50} 
-            placeholder="E-mail" 
+            placeholder="E-mail *" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
             value={userEmail}
@@ -133,7 +133,7 @@ export default function TelaCadastro(props){
             inputMode="tel" 
             keyboardType="numeric" 
             maxLength={11} 
-            placeholder="Telefone" 
+            placeholder="Telefone *" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
             value={tel}
@@ -142,7 +142,7 @@ export default function TelaCadastro(props){
             <TextInput 
             keyboardType="numeric" 
             maxLength={11} 
-            placeholder="CPF" 
+            placeholder="CPF *" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
             value={userCpf}
@@ -151,7 +151,7 @@ export default function TelaCadastro(props){
             <TextInput 
             keyboardType="numeric" 
             maxLength={10} 
-            placeholder="Data de Nascimento (DD/MM/YYYY)" 
+            placeholder="Data de Nascimento (DD/MM/YYYY) *" 
             placeholderTextColor={'#555'}
             style={Estilo.loginTextInputs}
             value={nasc}
@@ -160,7 +160,7 @@ export default function TelaCadastro(props){
             <TextInput 
             caretHidden={false} 
             maxLength={20} 
-            placeholder="Senha" 
+            placeholder="Senha *" 
             placeholderTextColor={'#555'}
             secureTextEntry={true}
             style={Estilo.loginTextInputs}
@@ -170,7 +170,7 @@ export default function TelaCadastro(props){
             <TextInput 
             caretHidden={false} 
             maxLength={20} 
-            placeholder="Confirmar Senha" 
+            placeholder="Confirmar Senha *" 
             placeholderTextColor={'#555'}
             secureTextEntry={true}
             style={Estilo.loginTextInputs}
